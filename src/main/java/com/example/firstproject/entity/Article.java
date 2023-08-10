@@ -7,12 +7,13 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Article {
-       // Article 생성자 추가
+    // Article 생성자 추가
     public Article(Long id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
     }
+
     // toString 메서드 추가
     @Override
     public String toString() {
