@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
+@Getter
 public class Article {
     // Article 생성자 추가(롬복 @AllArgsConstructor 리팩터링)
 
@@ -24,6 +26,8 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+    // 롬복을 이용해 Getter 추가
 
     // 기본 생성자 추가(롬복 @NoArgsConstructor 리팩터링)
     //Article() {
