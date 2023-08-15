@@ -1,0 +1,19 @@
+{{>layouts/header}}
+
+{{#member}}
+    <form class="container" action="/members/update" method="post">
+        <input name="id" type="hidden" value="{{id}}">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" value="{{email}}"> <!-- input -->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">password</label>
+            <textarea class="form-control" rows="3" name="password">{{password}}</textarea> <!-- textarea영역의 초깃값은 input 태그와 달리 콘텐트 영역에 정의 -->
+        </div>
+        <button type="submit" class="btn btn-primary">수정완료</button>
+        <a href="/members/{{id}}">Back</a>
+    </form>
+{{/member}}
+
+{{>layouts/footer}}
