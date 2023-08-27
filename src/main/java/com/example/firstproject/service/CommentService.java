@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.IllegalChannelGroupException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,5 +62,16 @@ public class CommentService {
         Comment updated = commentRepository.save(target);
         // 4. 댓글 엔티티를 DTO로 변환 및 반환
         return CommentDto.createCommentDto(updated);
+    }
+
+    @Transactional
+    public CommentDto delete(Long id) {
+        // 1. 댓글 조회 및 예외 발생
+        Comment target = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 삭제 실패! " + "대상이 없습니다."));
+        // 2. 댓글 삭제
+        commentRepository.delete(target);
+        // 3. 삭제 댓글을 DTO로 변환 및 반환
+        return CommentDto.createCommentDto(target);
     }
 }
