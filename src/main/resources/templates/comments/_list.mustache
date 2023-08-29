@@ -11,8 +11,7 @@
                         data-bs-id="{{id}}"
                         data-bs-nickname="{{nickname}}"
                         data-bs-body="{{body}}"
-                        data-bs-article-id="{{articleId}}">
-                    수정</button>
+                        data-bs-article-id="{{articleId}}">수정</button>
             </div>
             <div class="card-body">
                 {{body}}
@@ -26,19 +25,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5"
-                    id="exampleModalLabel">댓글 수정</h1>
+                <h5 class="modal-title" id="exampleModalLabel">
+                    댓글 수정</h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- 댓글 수정 폼-->
+                <!-- 댓글 수정 폼 -->
                 <form>
                     <!-- 닉네임 입력 -->
                     <div class="mb-3">
-                        <label class="form-label">닉네잉</label>
+                        <label class="form-label">닉네임</label>
                         <input type="text" class="form-control"
                                id="edit-comment-nickname">
                     </div>
@@ -49,18 +48,17 @@
                                   id="edit-comment-body"></textarea>
                     </div>
                     <!-- 히든 인풋 -->
-                    {{#article}}
-                        <input type="hidden" id="edit-comment-id">
-                        <input type="hidden" id="edit-comment-article-id">
-                    {{/article}}
+                    <input type="hidden" id="edit-comment-id">
+                    <input type="hidden" id="edit-comment-article-id">
                     <!-- 전송 버튼 -->
                     <button type="button" class="btn btn-primary"
-                            id="comment-create-btn">수정 완료</button>
+                            id="comment-update-btn">수정 완료</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <!-- 모달 이벤트 처리-->
 <script>
 {
@@ -70,11 +68,13 @@
     commentEditModal.addEventListener("show.bs.modal", function(event) {
         // 1. 트리거 버튼 선택
         const triggerBtn = event.relatedTarget;
+
         // 2. 데이터 가져오기
         const id = triggerBtn.getAttribute("data-bs-id");
         const nickname = triggerBtn.getAttribute("data-bs-nickname");
         const body = triggerBtn.getAttribute("data-bs-body");
         const articleId = triggerBtn.getAttribute("data-bs-article-id");
+
         // 3. 수정 폼에 데이터 반영
         document.querySelector("#edit-comment-nickname").value = nickname;
         document.querySelector("#edit-comment-body").value = body;
@@ -98,17 +98,17 @@
         // 수정 REST API 호출
         const url = "/api/comments/" + comment.id;
         fetch(url, {
-            method: "PATCH", // PATCH 요청
-            headers: { // 전송 데이터 타입(JSON) 정보
+            method: "PATCH",     // PATCH 요청
+            headers: {           // 전송 데이터 타입(JSON) 정보
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(comment) // comment 객체를 JSON 문자열로 변환 전송
+            body: JSON.stringify(comment) // JSON 문자열로 변환하여 전송
         }).then(response => {
-            // HTTP 응답 코드에 따른 메시지 출력
-            const msg = (response.ok) ? "댓글이 수정됐습니다." : "댓글 수정 실패..!";
-            alert(msg);
-            // 현재 페이지 새로 고침
-            window.location.reload();
+        // HTTP 응답 코드에 따른 메시지 출력
+        const msg = (response.ok) ? "댓글이 수정됐습니다." : "댓글 수정 실패..!";
+        alert(msg);
+        // 현재 페이지 새로고침
+        window.location.reload();
         });
     });
 }
